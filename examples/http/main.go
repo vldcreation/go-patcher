@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/jacobbrewer1/patcher"
+	"github.com/vldcreation/go-patcher"
 )
 
 type Person struct {

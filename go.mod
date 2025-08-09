@@ -1,4 +1,4 @@
-module github.com/jacobbrewer1/patcher
+module github.com/vldcreation/go-patcher
 
 go 1.24
 
