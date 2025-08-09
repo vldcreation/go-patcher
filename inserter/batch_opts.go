@@ -2,7 +2,8 @@ package inserter
 
 import (
 	"database/sql"
-"github.com/vldcreation/go-patcher"
+
+	"github.com/vldcreation/go-patcher/common"
 )
 
 type BatchOpt func(*SQLBatch)

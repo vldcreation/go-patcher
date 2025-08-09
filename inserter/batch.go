@@ -6,7 +6,8 @@ import (
 	"reflect"
 	"slices"
 	"strings"
-	"github.com/vldcreation/go-patcher"
+
+	"github.com/vldcreation/go-patcher/common"
 )
 
 var (

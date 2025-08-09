@@ -3,7 +3,7 @@ package selector
 import (
 	"database/sql"
 
-	"github.com/jacobbrewer1/patcher/common"
+	"github.com/vldcreation/go-patcher/common"
 )
 
 type SelectOpt func(*SQLSelect)

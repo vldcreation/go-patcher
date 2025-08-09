@@ -1,6 +1,6 @@
 package patcher
 
-import "github.com/jacobbrewer1/patcher/selector"
+import "github.com/vldcreation/go-patcher/selector"
 
 // NewSelector creates a new selector.
 //

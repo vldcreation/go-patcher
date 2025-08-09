@@ -1,8 +1,8 @@
 package selector
 
 import (
-	"github.com/jacobbrewer1/patcher/common"
 	"github.com/stretchr/testify/mock"
+	"github.com/vldcreation/go-patcher/common"
 )
 
 type mockWherer struct {

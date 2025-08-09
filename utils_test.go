@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/jacobbrewer1/patcher/common"
 	"github.com/stretchr/testify/require"
+	"github.com/vldcreation/go-patcher/common"
 )
 
 func TestIsPointerToStruct(t *testing.T) {

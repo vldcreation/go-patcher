@@ -1,6 +1,6 @@
 package patcher
 
-import "github.com/jacobbrewer1/patcher/common"
+import "github.com/vldcreation/go-patcher/common"
 
 type Joiner = common.Joiner
 

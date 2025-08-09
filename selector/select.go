@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"strings"
 
-	"github.com/jacobbrewer1/patcher/common"
+	"github.com/vldcreation/go-patcher/common"
 )
 
 type SQLSelect struct {

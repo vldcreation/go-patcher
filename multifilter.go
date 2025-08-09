@@ -3,7 +3,7 @@ package patcher
 import (
 	"strings"
 
-	"github.com/jacobbrewer1/patcher/common"
+	"github.com/vldcreation/go-patcher/common"
 )
 
 type Filter interface {

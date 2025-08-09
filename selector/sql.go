@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/jacobbrewer1/patcher/common"
+	"github.com/vldcreation/go-patcher/common"
 )
 
 func New(opts ...SelectOpt) *SQLSelect {

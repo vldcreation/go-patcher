@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/jacobbrewer1/patcher/common"
 	"github.com/stretchr/testify/assert"
+	"github.com/vldcreation/go-patcher/common"
 )
 
 func TestGenerateSQL(t *testing.T) {

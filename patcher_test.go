@@ -3,8 +3,8 @@ package patcher
 import (
 	"testing"
 
-	"github.com/jacobbrewer1/patcher/selector"
 	"github.com/stretchr/testify/assert"
+	"github.com/vldcreation/go-patcher/selector"
 )
 
 func TestNewSelector(t *testing.T) {
