@@ -1,7 +1,7 @@
 # Patcher
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/jacobbrewer1/patcher.svg)](https://pkg.go.dev/github.com/jacobbrewer1/patcher)
-[![Go Report Card](https://goreportcard.com/badge/github.com/jacobbrewer1/patcher)](https://goreportcard.com/report/github.com/jacobbrewer1/patcher)
+[![Go Reference](https://pkg.go.dev/badge/github.com/vldcreation/go-patcher.svg)](https://pkg.go.dev/github.com/vldcreation/go-patcher)
+[![Go Report Card](https://goreportcard.com/badge/github.com/vldcreation/go-patcher)](https://goreportcard.com/report/github.com/vldcreation/go-patcher)
 
 Patcher is a GO library that provides a simple way to generate and SQL patches from structs. The library was built out
 of the need to generate patches for a database; when a new field is added to a struct, this would result in a bunch of
@@ -156,7 +156,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
-	"github.com/jacobbrewer1/patcher"
+	"github.com/vldcreation/go-patcher"
 )
 
 type User struct {
@@ -279,7 +279,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/jacobbrewer1/patcher"
+	"github.com/vldcreation/go-patcher"
 )
 
 type Person struct {
@@ -360,7 +360,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/jacobbrewer1/patcher"
+	"github.com/vldcreation/go-patcher"
 )
 
 type Something struct {
@@ -416,7 +416,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/jacobbrewer1/patcher"
+	"github.com/vldcreation/go-patcher"
 )
 
 type Something struct {
@@ -515,7 +515,7 @@ many of these as you would like.
 To install the Patcher library, use the following command:
 
 ```sh
-go get github.com/jacobbrewer1/patcher
+go get github.com/vldcreation/go-patcher
 ```
 
 ## Examples

@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/jacobbrewer1/patcher"
+	"github.com/vldcreation/go-patcher"
 )
 
 type Something struct {

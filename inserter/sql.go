@@ -5,8 +5,7 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-
-	"github.com/jacobbrewer1/patcher/common"
+	"github.com/vldcreation/go-patcher"
 )
 
 func NewBatch(resources []any, opts ...BatchOpt) *SQLBatch {

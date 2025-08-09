@@ -7,7 +7,7 @@ The `inserter` package provides functionality to insert data into a database usi
 To install the `inserter` package, use the following command:
 
 ```sh
-go get github.com/jacobbrewer1/patcher/inserter
+go get github.com/vldcreation/go-patcher/inserter
 ```
 
 ## Usage
@@ -20,7 +20,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/jacobbrewer1/patcher/inserter"
+	"github.com/vldcreation/go-patcher/inserter"
 )
 
 type User struct {
