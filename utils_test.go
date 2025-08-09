@@ -4,6 +4,7 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/jacobbrewer1/patcher/common"
 	"github.com/stretchr/testify/require"
 )
 
@@ -159,7 +160,7 @@ func TestIsValidType(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			val := reflect.ValueOf(tt.value)
-			actual := IsValidType(val)
+			actual := common.IsValidType(val)
 			require.Equal(t, tt.expected, actual)
 		})
 	}
