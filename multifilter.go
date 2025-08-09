@@ -1,10 +1,14 @@
 package patcher
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/vldcreation/go-patcher/common"
+)
 
 type Filter interface {
-	Joiner
-	Wherer
+	common.Joiner
+	common.Wherer
 }
 
 type MultiFilter interface {
@@ -28,12 +32,12 @@ func (m *multiFilter) Where() (sqlStr string, args []any) {
 }
 
 func (m *multiFilter) Add(filter any) {
-	if joiner, ok := filter.(Joiner); ok {
-		appendJoin(joiner, m.joinSql, &m.joinArgs)
+	if joiner, ok := filter.(common.Joiner); ok {
+		common.AppendJoin(joiner, m.joinSql, &m.joinArgs)
 	}
 
-	if wherer, ok := filter.(Wherer); ok {
-		appendWhere(wherer, m.whereSql, &m.whereArgs)
+	if wherer, ok := filter.(common.Wherer); ok {
+		common.AppendWhere(wherer, m.whereSql, &m.whereArgs)
 	}
 }
 

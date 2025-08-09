@@ -3,7 +3,7 @@ package inserter
 import (
 	"database/sql"
 
-	"github.com/vldcreation/go-patcher"
+	"github.com/vldcreation/go-patcher/common"
 )
 
 type BatchOpt func(*SQLBatch)
@@ -37,7 +37,7 @@ func WithIgnoreFields(fields ...string) BatchOpt {
 }
 
 // WithIgnoreFieldsFunc sets the function that determines whether a field should be ignored
-func WithIgnoreFieldsFunc(f patcher.IgnoreFieldsFunc) BatchOpt {
+func WithIgnoreFieldsFunc(f common.IgnoreFieldsFunc) BatchOpt {
 	return func(b *SQLBatch) {
 		b.ignoreFieldsFunc = f
 	}

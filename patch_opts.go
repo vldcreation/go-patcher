@@ -2,13 +2,15 @@ package patcher
 
 import (
 	"database/sql"
+
+	"github.com/vldcreation/go-patcher/common"
 )
 
 const (
-	TagOptsName     = "patcher"
-	TagOptSeparator = ","
-	TagOptSkip      = "-"
-	TagOptOmitempty = "omitempty"
+	TagOptsName     = common.TagOptsName
+	TagOptSeparator = common.TagOptSeparator
+	TagOptSkip      = common.TagOptSkip
+	TagOptOmitempty = common.TagOptOmitempty
 )
 
 type PatchOpt func(*SQLPatch)
@@ -41,9 +43,9 @@ func WithFilter(filter any) PatchOpt {
 }
 
 // WithWhere sets the where clause to use in the SQL statement
-func WithWhere(where Wherer) PatchOpt {
+func WithWhere(where common.Wherer) PatchOpt {
 	return func(s *SQLPatch) {
-		appendWhere(where, s.whereSql, &s.whereArgs)
+		common.AppendWhere(where, s.whereSql, &s.whereArgs)
 	}
 }
 
@@ -54,7 +56,7 @@ func WithWhere(where Wherer) PatchOpt {
 // want to specify the WHERE type or do a more complex WHERE clause.
 func WithWhereStr(where string, args ...any) PatchOpt {
 	return func(s *SQLPatch) {
-		appendWhere(&whereStringOption{
+		common.AppendWhere(&whereStringOption{
 			where: where,
 			args:  args,
 		}, s.whereSql, &s.whereArgs)
@@ -62,9 +64,9 @@ func WithWhereStr(where string, args ...any) PatchOpt {
 }
 
 // WithJoin sets the join clause to use in the SQL statement
-func WithJoin(join Joiner) PatchOpt {
+func WithJoin(join common.Joiner) PatchOpt {
 	return func(s *SQLPatch) {
-		appendJoin(join, s.joinSql, &s.joinArgs)
+		common.AppendJoin(join, s.joinSql, &s.joinArgs)
 	}
 }
 
@@ -75,7 +77,7 @@ func WithJoin(join Joiner) PatchOpt {
 // want to specify the JOIN type or do a more complex JOIN clause.
 func WithJoinStr(join string, args ...any) PatchOpt {
 	return func(s *SQLPatch) {
-		appendJoin(&joinStringOption{
+		common.AppendJoin(&joinStringOption{
 			join: join,
 			args: args,
 		}, s.joinSql, &s.joinArgs)

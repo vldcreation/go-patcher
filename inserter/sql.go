@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/vldcreation/go-patcher"
+	"github.com/vldcreation/go-patcher/common"
 )
 
 func NewBatch(resources []any, opts ...BatchOpt) *SQLBatch {
@@ -39,19 +39,19 @@ func (b *SQLBatch) genBatch(resources []any) {
 			f := t.Field(i)
 			fVal := v.Field(i)
 
-			if !patcher.IsValidType(fVal) || !f.IsExported() || b.checkSkipField(&f) {
+			if !common.IsValidType(fVal) || !f.IsExported() || b.checkSkipField(&f) {
 				continue
 			}
 
 			tag := f.Tag.Get(b.tagName)
-			if tag == patcher.TagOptSkip {
+			if tag == common.TagOptSkip {
 				continue
 			}
 
 			if tag == "" {
 				tag = f.Name
 			} else {
-				tag = strings.Split(tag, patcher.TagOptSeparator)[0]
+				tag = strings.Split(tag, common.TagOptSeparator)[0]
 			}
 
 			b.args = append(b.args, b.getFieldValue(fVal, &f))

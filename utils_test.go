@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+	"github.com/vldcreation/go-patcher/common"
 )
 
 func TestIsPointerToStruct(t *testing.T) {
@@ -159,7 +160,7 @@ func TestIsValidType(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			val := reflect.ValueOf(tt.value)
-			actual := IsValidType(val)
+			actual := common.IsValidType(val)
 			require.Equal(t, tt.expected, actual)
 		})
 	}

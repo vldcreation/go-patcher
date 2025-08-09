@@ -6,11 +6,13 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+
+	"github.com/vldcreation/go-patcher/common"
 )
 
 const (
-	DefaultDbTagName = "db"
-	DBTagPrimaryKey  = "pk"
+	DefaultDbTagName = common.DefaultDbTagName
+	DBTagPrimaryKey  = common.DBTagPrimaryKey
 )
 
 var (

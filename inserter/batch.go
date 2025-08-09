@@ -7,7 +7,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/vldcreation/go-patcher"
+	"github.com/vldcreation/go-patcher/common"
 )
 
 var (
@@ -46,7 +46,7 @@ type SQLBatch struct {
 	// ignoreFieldsFunc is a function that determines whether a field should be ignored
 	//
 	// This func should return true is the field is to be ignored
-	ignoreFieldsFunc patcher.IgnoreFieldsFunc
+	ignoreFieldsFunc common.IgnoreFieldsFunc
 
 	// includePrimaryKey determines whether the primary key should be included in the insert
 	includePrimaryKey bool
@@ -58,7 +58,7 @@ func newBatchDefaults(opts ...BatchOpt) *SQLBatch {
 		fields:            make([]string, 0),
 		args:              make([]any, 0),
 		db:                nil,
-		tagName:           patcher.DefaultDbTagName,
+		tagName:           common.DefaultDbTagName,
 		table:             "",
 		includePrimaryKey: false,
 	}
@@ -119,22 +119,22 @@ func (b *SQLBatch) checkSkipField(field *reflect.StructField) bool {
 }
 
 func (b *SQLBatch) checkSkipTag(field *reflect.StructField) bool {
-	val, ok := field.Tag.Lookup(patcher.TagOptsName)
+	val, ok := field.Tag.Lookup(common.TagOptsName)
 	if !ok {
 		return false
 	}
-	return slices.Contains(strings.Split(val, patcher.TagOptSeparator), patcher.TagOptSkip)
+	return slices.Contains(strings.Split(val, common.TagOptSeparator), common.TagOptSkip)
 }
 
 func (b *SQLBatch) checkPrimaryKey(field *reflect.StructField) bool {
 	if b.includePrimaryKey {
 		return false
 	}
-	val, ok := field.Tag.Lookup(patcher.DefaultDbTagName)
+	val, ok := field.Tag.Lookup(common.DefaultDbTagName)
 	if !ok {
 		return false
 	}
-	return slices.Contains(strings.Split(val, patcher.TagOptSeparator), patcher.DBTagPrimaryKey)
+	return slices.Contains(strings.Split(val, common.TagOptSeparator), common.DBTagPrimaryKey)
 }
 
 func (b *SQLBatch) ignoredFieldsCheck(field *reflect.StructField) bool {

@@ -6,6 +6,8 @@ import (
 	"reflect"
 	"slices"
 	"strings"
+
+	"github.com/vldcreation/go-patcher/common"
 )
 
 var (
@@ -25,7 +27,7 @@ var (
 	ErrNoWhere = errors.New("no where clause set")
 )
 
-type IgnoreFieldsFunc func(field *reflect.StructField) bool
+type IgnoreFieldsFunc = common.IgnoreFieldsFunc
 
 type SQLPatch struct {
 	// fields is the fields to update in the SQL statement
@@ -187,7 +189,7 @@ func (s *SQLPatch) shouldOmitEmpty(tag string) bool {
 }
 
 func (s *SQLPatch) shouldSkipField(fType *reflect.StructField, fVal reflect.Value) bool {
-	if !fType.IsExported() || !IsValidType(fVal) || s.checkSkipField(fType) {
+	if !fType.IsExported() || !common.IsValidType(fVal) || s.checkSkipField(fType) {
 		return true
 	}
 
