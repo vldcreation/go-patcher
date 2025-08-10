@@ -4,6 +4,7 @@ import (
 	"database/sql"
 
 	"github.com/vldcreation/go-patcher/common"
+	"github.com/vldcreation/go-patcher/placeholder"
 )
 
 const (
@@ -139,5 +140,12 @@ func WithLimit(limit int) PatchOpt {
 func WithOffset(offset int) PatchOpt {
 	return func(s *SQLPatch) {
 		s.offset = offset
+	}
+}
+
+// WithPlaceholderFormat sets the placeholder format for the SQL query.
+func WithPlaceholderFormat(placeholderType placeholder.Type) PatchOpt {
+	return func(s *SQLPatch) {
+		s.placeholderType = placeholderType
 	}
 }

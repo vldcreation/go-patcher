@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/vldcreation/go-patcher/common"
+	"github.com/vldcreation/go-patcher/placeholder"
 )
 
 var (
@@ -76,6 +77,9 @@ type SQLPatch struct {
 
 	// offset is the offset for the SQL query
 	offset int
+
+	// placeholderType is the type of placeholder to use in the SQL query
+	placeholderType placeholder.Type
 }
 
 // newPatchDefaults creates a new SQLPatch with default options.
@@ -97,6 +101,7 @@ func newPatchDefaults(opts ...PatchOpt) *SQLPatch {
 		ignoreFieldsFunc:  nil,
 		limit:             0,
 		offset:            0,
+		placeholderType:   placeholder.Question,
 	}
 
 	for _, opt := range opts {

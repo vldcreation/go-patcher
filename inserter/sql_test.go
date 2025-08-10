@@ -4,9 +4,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/vldcreation/go-patcher"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
+	"github.com/vldcreation/go-patcher"
+	"github.com/vldcreation/go-patcher/placeholder"
 )
 
 func ptr[T any](v T) *T {
@@ -487,4 +488,22 @@ func (s *generateSQLSuite) TestGenerateSQL_Success_IgnoredFieldsFunc() {
 
 	s.Equal("INSERT INTO temp (name) VALUES (?), (?), (?), (?), (?)", sql)
 	s.Len(args, 5)
+}
+
+func (s *generateSQLSuite) TestGenerateSQL_Success_WithDollarPlaceholder() {
+	type temp struct {
+		ID   int    `db:"id"`
+		Name string `db:"name"`
+	}
+
+	resources := []any{
+		&temp{ID: 1, Name: "test"},
+		&temp{ID: 2, Name: "test2"},
+	}
+
+	sql, args, err := NewBatch(resources, WithTable("temp"), WithTagName("db"), WithPlaceholderFormat(placeholder.Dollar)).GenerateSQL()
+	s.Require().NoError(err)
+
+	s.Equal("INSERT INTO temp (id, name) VALUES ($1, $2), ($3, $4)", sql)
+	s.Len(args, 4)
 }

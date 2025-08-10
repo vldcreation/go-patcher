@@ -4,6 +4,7 @@ import (
 	"database/sql"
 
 	"github.com/vldcreation/go-patcher/common"
+	"github.com/vldcreation/go-patcher/placeholder"
 )
 
 type BatchOpt func(*SQLBatch)
@@ -47,5 +48,12 @@ func WithIgnoreFieldsFunc(f common.IgnoreFieldsFunc) BatchOpt {
 func WithIncludePrimaryKey(includePrimaryKey bool) BatchOpt {
 	return func(b *SQLBatch) {
 		b.includePrimaryKey = includePrimaryKey
+	}
+}
+
+// WithPlaceholderFormat sets the placeholder format for the SQL query.
+func WithPlaceholderFormat(placeholderType placeholder.Type) BatchOpt {
+	return func(b *SQLBatch) {
+		b.placeholderType = placeholderType
 	}
 }

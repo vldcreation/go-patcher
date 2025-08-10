@@ -4,6 +4,7 @@ import (
 	"database/sql"
 
 	"github.com/vldcreation/go-patcher/common"
+	"github.com/vldcreation/go-patcher/placeholder"
 )
 
 type SelectOpt func(*SQLSelect)
@@ -54,5 +55,12 @@ func WithLimit(limit int) SelectOpt {
 func WithOffset(offset int) SelectOpt {
 	return func(s *SQLSelect) {
 		s.offset = offset
+	}
+}
+
+// WithPlaceholderFormat sets the placeholder format for the SQL query.
+func WithPlaceholderFormat(placeholderType placeholder.Type) SelectOpt {
+	return func(s *SQLSelect) {
+		s.placeholderType = placeholderType
 	}
 }

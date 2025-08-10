@@ -8,6 +8,7 @@ import (
 
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
+	"github.com/vldcreation/go-patcher/placeholder"
 )
 
 type newSQLPatchSuite struct {
@@ -772,6 +773,32 @@ func (s *generateSQLSuite) TestGenerateSQL_Success() {
 	)
 	s.Require().NoError(err)
 	s.Equal("UPDATE test_table\nSET id = ?, name = ?\nWHERE (1=1)\nAND (\nage = ?\n)", sqlStr)
+	s.Equal([]any{1, "test", 18}, args)
+
+	mw.AssertExpectations(s.T())
+}
+
+func (s *generateSQLSuite) TestGenerateSQL_Success_WithDollarPlaceholder() {
+	type testObj struct {
+		Id   *int    `db:"id"`
+		Name *string `db:"name"`
+	}
+
+	obj := testObj{
+		Id:   ptr(1),
+		Name: ptr("test"),
+	}
+
+	mw := NewMockWherer(s.T())
+	mw.On("Where").Return("age = ?", []any{18})
+
+	sqlStr, args, err := GenerateSQL(obj,
+		WithTable("test_table"),
+		WithWhere(mw),
+		WithPlaceholderFormat(placeholder.Dollar),
+	)
+	s.Require().NoError(err)
+	s.Equal("UPDATE test_table\nSET id = $1, name = $2\nWHERE (1=1)\nAND (\nage = $3\n)", sqlStr)
 	s.Equal([]any{1, "test", 18}, args)
 
 	mw.AssertExpectations(s.T())

@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/vldcreation/go-patcher/common"
+	"github.com/vldcreation/go-patcher/placeholder"
 )
 
 var (
@@ -50,6 +51,9 @@ type SQLBatch struct {
 
 	// includePrimaryKey determines whether the primary key should be included in the insert
 	includePrimaryKey bool
+
+	// placeholderType is the type of placeholder to use in the SQL query
+	placeholderType placeholder.Type
 }
 
 // newBatchDefaults returns a new SQLBatch with default values
@@ -61,6 +65,7 @@ func newBatchDefaults(opts ...BatchOpt) *SQLBatch {
 		tagName:           common.DefaultDbTagName,
 		table:             "",
 		includePrimaryKey: false,
+		placeholderType:   placeholder.Question,
 	}
 
 	for _, opt := range opts {
