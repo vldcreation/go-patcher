@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/vldcreation/go-patcher/common"
+	"github.com/vldcreation/go-patcher/placeholder"
 )
 
 func (s *SQLSelect) GenerateSQL() (sqlStr string, args []any, err error) {
@@ -42,7 +43,7 @@ func (s *SQLSelect) GenerateSQL() (sqlStr string, args []any, err error) {
 	sqlArgs := s.joinArgs
 	sqlArgs = append(sqlArgs, s.whereArgs...)
 
-	return strings.TrimSpace(sqlBuilder.String()), sqlArgs, nil
+	return placeholder.Rebind(strings.TrimSpace(sqlBuilder.String()), s.placeholderType), sqlArgs, nil
 }
 
 func (s *SQLSelect) Perform(dest any) error {

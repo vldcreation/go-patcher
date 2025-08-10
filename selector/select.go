@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/vldcreation/go-patcher/common"
+	"github.com/vldcreation/go-patcher/placeholder"
 )
 
 type SQLSelect struct {
@@ -40,6 +41,9 @@ type SQLSelect struct {
 
 	// offset is the offset for the SQL query
 	offset int
+
+	// placeholderType is the type of placeholder to use in the SQL query
+	placeholderType placeholder.Type
 }
 
 func newSelectDefaults(opts ...SelectOpt) *SQLSelect {
@@ -53,8 +57,9 @@ func newSelectDefaults(opts ...SelectOpt) *SQLSelect {
 		whereArgs: make([]any, 0),
 		joinSql:   new(strings.Builder),
 		joinArgs:  make([]any, 0),
-		limit:     0,
-		offset:    0,
+		limit:           0,
+		offset:          0,
+		placeholderType: placeholder.Question,
 	}
 
 	for _, opt := range opts {

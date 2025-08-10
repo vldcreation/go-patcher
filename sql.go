@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/vldcreation/go-patcher/common"
+	"github.com/vldcreation/go-patcher/placeholder"
 )
 
 const (
@@ -126,7 +127,7 @@ func (s *SQLPatch) GenerateSQL() (sqlStr string, args []any, err error) {
 	sqlArgs = append(sqlArgs, s.args...)
 	sqlArgs = append(sqlArgs, s.whereArgs...)
 
-	return strings.TrimSpace(sqlBuilder.String()), sqlArgs, nil
+	return placeholder.Rebind(strings.TrimSpace(sqlBuilder.String()), s.placeholderType), sqlArgs, nil
 }
 
 // PerformPatch executes the SQL update statement for the given resource.

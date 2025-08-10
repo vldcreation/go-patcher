@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/vldcreation/go-patcher/common"
+	"github.com/vldcreation/go-patcher/placeholder"
 )
 
 func NewBatch(resources []any, opts ...BatchOpt) *SQLBatch {
@@ -88,11 +89,43 @@ func (b *SQLBatch) GenerateSQL() (sqlStr string, args []any, err error) {
 	sqlBuilder.WriteString(strings.Join(b.fields, ", "))
 	sqlBuilder.WriteString(") VALUES ")
 
-	placeholder := "(" + strings.Repeat("?, ", len(b.fields)-1) + "?)"
-	placeholders := strings.Repeat(placeholder+", ", len(b.args)/len(b.fields))
-	sqlBuilder.WriteString(placeholders[:len(placeholders)-2])
+	sqlBuilder.WriteString(b.buildPlaceholders())
 
 	return sqlBuilder.String(), b.args, nil
+}
+
+func (b *SQLBatch) buildPlaceholders() string {
+	if b.placeholderType == placeholder.Dollar {
+		return b.buildDollarPlaceholders()
+	}
+
+	return b.buildQuestionMarkPlaceholders()
+}
+
+func (b *SQLBatch) buildQuestionMarkPlaceholders() string {
+	placeholder := "(" + strings.Repeat("?, ", len(b.fields)-1) + "?)"
+	placeholders := strings.Repeat(placeholder+", ", len(b.args)/len(b.fields))
+	return placeholders[:len(placeholders)-2]
+}
+
+func (b *SQLBatch) buildDollarPlaceholders() string {
+	placeholders := new(strings.Builder)
+	rowCount := len(b.args) / len(b.fields)
+	for i := 0; i < rowCount; i++ {
+		placeholders.WriteString("(")
+		for j := 0; j < len(b.fields); j++ {
+			placeholders.WriteString("$")
+			placeholders.WriteString(fmt.Sprintf("%d", i*len(b.fields)+j+1))
+			if j < len(b.fields)-1 {
+				placeholders.WriteString(", ")
+			}
+		}
+		placeholders.WriteString(")")
+		if i < rowCount-1 {
+			placeholders.WriteString(", ")
+		}
+	}
+	return placeholders.String()
 }
 
 func (b *SQLBatch) Perform() (sql.Result, error) {

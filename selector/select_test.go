@@ -7,13 +7,6 @@ import (
 	"github.com/vldcreation/go-patcher/selector"
 )
 
-type User struct {
-	ID           int    `db:"id"`
-	IgnoredField string `db:"-"`
-	EmptyTag     string `db:""`
-	CommaTag     string `db:"comma,omitempty"`
-}
-
 type UserWhere struct {
 	ID *int `db:"id"`
 }
@@ -73,6 +66,11 @@ func TestSelector_FromWithEmbedded(t *testing.T) {
 }
 
 func TestSelector_FromWithIgnoredField(t *testing.T) {
+	type User struct {
+		ID           int    `db:"id"`
+		IgnoredField string `db:"-"`
+	}
+
 	s := selector.New(selector.WithTable("users"))
 	s.From(User{})
 
@@ -84,6 +82,11 @@ func TestSelector_FromWithIgnoredField(t *testing.T) {
 }
 
 func TestSelector_FromWithEmptyTag(t *testing.T) {
+	type User struct {
+		ID       int    `db:"id"`
+		EmptyTag string `db:""`
+	}
+
 	s := selector.New(selector.WithTable("users"))
 	s.From(User{})
 
@@ -95,6 +98,11 @@ func TestSelector_FromWithEmptyTag(t *testing.T) {
 }
 
 func TestSelector_FromWithCommaTag(t *testing.T) {
+	type User struct {
+		ID       int    `db:"id"`
+		CommaTag string `db:"name,omitempty"`
+	}
+
 	s := selector.New(selector.WithTable("users"))
 	s.From(User{})
 
@@ -106,6 +114,11 @@ func TestSelector_FromWithCommaTag(t *testing.T) {
 }
 
 func TestSelector_WithWhere(t *testing.T) {
+	type User struct {
+		ID       int    `db:"id"`
+		CommaTag string `db:"comma,omitempty"`
+	}
+
 	wherer := NewUserWhere(1)
 	s := selector.New(selector.WithTable("users"), selector.WithWhere(wherer))
 	s.From(User{})
@@ -118,6 +131,11 @@ func TestSelector_WithWhere(t *testing.T) {
 }
 
 func TestSelector_WithWhereNoValue(t *testing.T) {
+	type User struct {
+		ID       int    `db:"id"`
+		CommaTag string `db:"comma,omitempty"`
+	}
+
 	s := selector.New(selector.WithTable("users"), selector.WithWhere(&UserWhere{}))
 	s.From(User{})
 

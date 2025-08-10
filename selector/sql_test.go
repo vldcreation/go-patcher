@@ -6,6 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/vldcreation/go-patcher/common"
+	"github.com/vldcreation/go-patcher/placeholder"
 )
 
 func TestGenerateSQL(t *testing.T) {
@@ -81,6 +82,20 @@ func TestGenerateSQL(t *testing.T) {
 				}
 			},
 			expected: "SELECT * FROM users\nLIMIT 10\nOFFSET 5",
+		},
+		{
+			name: "select with where and dollar placeholder",
+			opts: func(wherer *mockWherer) []SelectOpt {
+				wherer.On("Where").Return("name = ?", []any{"test"})
+				wherer.On("WhereType").Return(common.WhereTypeAnd)
+				return []SelectOpt{
+					WithTable("users"),
+					WithWhere(wherer),
+					WithPlaceholderFormat(placeholder.Dollar),
+				}
+			},
+			expected: "SELECT * FROM users\nWHERE (1=1)\nAND name = $1",
+			args:     []any{"test"},
 		},
 	}
 
