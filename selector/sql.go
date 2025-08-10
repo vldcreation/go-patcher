@@ -8,10 +8,6 @@ import (
 	"github.com/vldcreation/go-patcher/common"
 )
 
-func New(opts ...SelectOpt) *SQLSelect {
-	return newSelectDefaults(opts...)
-}
-
 func (s *SQLSelect) GenerateSQL() (sqlStr string, args []any, err error) {
 	sqlBuilder := new(strings.Builder)
 	sqlBuilder.WriteString("SELECT ")

@@ -1,4 +1,4 @@
-package patcher
+package selector_test
 
 import (
 	"testing"
@@ -8,6 +8,6 @@ import (
 )
 
 func TestNewSelector(t *testing.T) {
-	s := NewSelector(selector.WithTable("users"))
+	s := selector.New(selector.WithTable("users"))
 	assert.NotNil(t, s)
 }
