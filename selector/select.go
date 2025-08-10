@@ -63,3 +63,14 @@ func newSelectDefaults(opts ...SelectOpt) *SQLSelect {
 
 	return s
 }
+
+// New creates a new selector.
+func New(opts ...SelectOpt) *SQLSelect {
+	return newSelectDefaults(opts...)
+}
+
+// From sets the fields to select from a struct.
+func (s *SQLSelect) From(st any) *SQLSelect {
+	s.fields = s.parseFields(st)
+	return s
+}
