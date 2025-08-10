@@ -7,6 +7,11 @@ import (
 	"github.com/vldcreation/go-patcher/placeholder"
 )
 
+const (
+	DefaultPage  = 1
+	DefaultLimit = 50
+)
+
 type SelectOpt func(*SQLSelect)
 
 // WithTable sets the table name to use in the SQL statement
@@ -62,5 +67,18 @@ func WithOffset(offset int) SelectOpt {
 func WithPlaceholderFormat(placeholderType placeholder.Type) SelectOpt {
 	return func(s *SQLSelect) {
 		s.placeholderType = placeholderType
+	}
+}
+
+func WithPagination(page, limit int) SelectOpt {
+	return func(s *SQLSelect) {
+		if page < 1 {
+			page = DefaultPage
+		}
+		if limit < 1 {
+			limit = DefaultLimit
+		}
+		s.limit = limit
+		s.offset = (page - 1) * limit
 	}
 }
