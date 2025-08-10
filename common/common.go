@@ -71,6 +71,9 @@ func AppendWhere(where Wherer, builder *strings.Builder, args *[]any) {
 	if fwArgs == nil {
 		fwArgs = make([]any, 0)
 	}
+	if wSQL == "" {
+		return
+	}
 	wtStr := WhereTypeAnd // default to AND
 	wt, ok := where.(WhereTyper)
 	if ok && wt.WhereType().IsValid() {
